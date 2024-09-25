@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/button": "^2.0.38",
+    "@nextui-org/react": "^2.4.8",
     "@types/bcrypt": "^5.0.2",
     "@vercel/postgres": "^0.10.0",
     "bcrypt": "^5.1.1",
+    "lucide-react": "^0.445.0",
     "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18"

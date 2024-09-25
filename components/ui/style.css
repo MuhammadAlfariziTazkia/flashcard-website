@@ -1,0 +1,60 @@
+/* styles.css */
+.pop-button {
+    display: flex;
+    background-color: #f7f7f7; /* Sama dengan bg-gray-100 */
+    color: #4b5563; /* Sama dengan text-gray-800 */
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+    transition: all 0.3s;
+  }
+  
+  .pop-button:hover {
+    box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+  }
+
+  .deep-button {
+    display: flex;
+    background-color: #f7f7f7; /* Sama dengan bg-gray-100 */
+    color: #4b5563; /* Sama dengan text-gray-800 */
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+    transition: all 0.3s;
+  }
+  
+  .deep-button:hover {
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+  }
+  
+  .button-icon {
+    margin-right: 0.5rem; /* Sama dengan mr-2 */
+    width: 1rem; /* Sama dengan w-4 */
+  }
+  
+  .flex-container {
+    display: flex;
+    gap: 1rem; /* Sama dengan space-x-4 */
+  }
+  
+  .section-container {
+    background-color: #f7f7f7; /* Sama dengan bg-gray-100 */
+    padding: 1.5rem; /* Sama dengan p-6 */
+    border-radius: 1rem; /* Sama dengan rounded-xl */
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+  }
+  
+  .heading {
+    font-size: 2rem; /* Sama dengan text-2xl */
+    font-weight: 600;
+    color: #1f2937; /* Sama dengan text-gray-800 */
+    margin-bottom: 0.5rem; /* Sama dengan mb-2 */
+  }
+  
+  .paragraph {
+    color: #4b5563; /* Sama dengan text-gray-600 */
+    margin-bottom: 1rem; /* Sama dengan mb-4 */
+  }
+  
