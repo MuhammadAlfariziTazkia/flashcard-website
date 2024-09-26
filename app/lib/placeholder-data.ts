@@ -1,3 +1,5 @@
+import { TopicType } from "./types";
+
 export const topicDummyDataList: TopicType[] = [
     {
       id: '1',

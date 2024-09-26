@@ -1,5 +1,6 @@
 import { XIcon } from "lucide-react";
 import '@/components/ui/button/button-style.css'
+import { BaseButtonPropsType } from "@/app/lib/types";
 
 export default function CloseButton({action} : BaseButtonPropsType) {
     return (

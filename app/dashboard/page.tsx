@@ -6,6 +6,7 @@ import { topicDummyDataList } from "../lib/placeholder-data";
 import TopicCard from "@/components/ui/card/TopicCard";
 import CreateTopicModal from "@/components/ui/modal/CreateTopicModal";
 import TestModal from "@/components/ui/modal/TestModal";
+import { TopicType } from "../lib/types";
 
 
 export default function HomePage() {

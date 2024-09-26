@@ -1,3 +1,4 @@
+import { ButtonPropsType } from '@/app/lib/types'
 import '@/components/ui/button/button-style.css'
 import { ListIcon, PlayIcon, PlusIcon } from "lucide-react"
 

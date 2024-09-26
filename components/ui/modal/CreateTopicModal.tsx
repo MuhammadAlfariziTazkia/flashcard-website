@@ -1,8 +1,9 @@
+import { CreateTopicModalPropsType } from "@/app/lib/types";
 import LongButton from "../button/LongButton";
 import Input from "../input/TextInput";
 import ModalLayout from "./ModalLayout";
 
-export default function CreateTopicModal({ closeAction }: CreateTopicModaPropsType) {
+export default function CreateTopicModal({ closeAction }: CreateTopicModalPropsType) {
     const body: React.ReactNode = (
         <form>
             <Input placeholder="Example: Japanese Vocabulary" />

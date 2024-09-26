@@ -1,3 +1,4 @@
+import { BaseButtonPropsType } from '@/app/lib/types'
 import '@/components/ui/button/button-style.css'
 
 export default function LongButton({text}: BaseButtonPropsType) {

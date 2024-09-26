@@ -1,3 +1,4 @@
+import { TopicType } from "@/app/lib/types";
 import Button from "../button/Button";
 
 export default function TopicCard ({id, name, cards, testAction} : TopicType) {

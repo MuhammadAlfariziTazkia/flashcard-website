@@ -1,3 +1,4 @@
+import { ModalLayoutPropsType } from "@/app/lib/types";
 import CloseButton from "../button/CloseButton";
 
 export default function ModalLayout ({ title, closeAction, body }: ModalLayoutPropsType) {
