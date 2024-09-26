@@ -10,9 +10,9 @@ function getIconComponent(value: string) {
  }
 }
 
-export default function Button({iconType = "", text = "", popup = false} : ButtonPropsType) {
+export default function Button({iconType = "", text = "", popup = false, action} : ButtonPropsType) {
     return (
-        <button className={popup ? "pop-button" : "deep-button"}>
+        <button className={popup ? "pop-button" : "deep-button"} onClick={action}>
             {getIconComponent(iconType)}
             {text}
         </button>
