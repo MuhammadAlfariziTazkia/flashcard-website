@@ -5,7 +5,13 @@ interface BaseButtonPropsType {
 
 interface BaseInputPropsType {
     name?: string;
+    value?: string;
     placeholder?: string;
+}
+
+interface ModalHeaderPropsType {
+    title: string;
+    closeAction?: () => void;
 }
 
 interface ButtonPropsType extends BaseButtonPropsType {
@@ -22,6 +28,7 @@ interface FlashcardDataType {
 interface TopicType {
     id: string;
     name: string;
+    testAction?: () => void;
     cards: FlashcardDataType[];
 }
 
