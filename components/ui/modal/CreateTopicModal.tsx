@@ -5,10 +5,12 @@ import ModalLayout from "./ModalLayout";
 
 export default function CreateTopicModal({ closeAction }: CreateTopicModalPropsType) {
     const body: React.ReactNode = (
-        <form>
-            <Input placeholder="Example: Japanese Vocabulary" />
-            <LongButton text="Save" />
-        </form>
+        <div className="mb-6">
+            <form>
+                <Input placeholder="Example: Japanese Vocabulary" />
+                <LongButton text="Save" />
+            </form>
+        </div>
     )
     return <ModalLayout title="New Topic" body={body} closeAction={closeAction} />
 }

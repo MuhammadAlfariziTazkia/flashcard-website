@@ -9,9 +9,7 @@ export default function ModalLayout ({ title, closeAction, body }: ModalLayoutPr
                     <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
                     <CloseButton action={closeAction} />
                 </div>
-                <div className="mb-6">
-                    {body}
-                </div>
+                {body}
             </div>
         </div>
     )

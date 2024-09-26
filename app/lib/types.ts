@@ -30,6 +30,7 @@ export interface TopicType {
     id: string;
     name: string;
     testAction?: () => void;
+    cardListAction?: () => void;
     cards: FlashcardDataType[];
 }
 

@@ -1,25 +1,16 @@
 input {
     width: 100%;
-    /* Sesuai dengan w-full */
     margin-bottom: 1.75rem;
-    /* Sesuai dengan mb-7 */
     padding: 1rem;
-    /* Sesuai dengan p-4 */
     background-color: #f7fafc;
-    /* Sesuai dengan bg-gray-100 */
     border-radius: 0.75rem;
-    /* Sesuai dengan rounded-xl */
     box-shadow:
         inset 5px 5px 10px #bebebe,
         inset -5px -5px 10px #ffffff;
-    /* Sesuai dengan shadow */
     color: #4a5568;
-    /* Sesuai dengan text-gray-800 */
     border: none;
-    /* Menghilangkan border default */
 }
 
 input:focus {
     outline: none;
-    /* Menghilangkan outline default */
 }
