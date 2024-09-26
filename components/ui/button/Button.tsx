@@ -1,4 +1,4 @@
-import '@/components/ui/style.css'
+import '@/components/ui/button/button-style.css'
 import { ListIcon, PlayIcon, PlusIcon } from "lucide-react"
 
 function getIconComponent(value: string) {

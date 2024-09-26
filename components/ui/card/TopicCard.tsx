@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "../button/Button";
 
 export default function TopicCard ({id, name, cards, testAction} : TopicType) {
     return (

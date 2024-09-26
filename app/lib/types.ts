@@ -9,7 +9,8 @@ interface BaseInputPropsType {
     placeholder?: string;
 }
 
-interface ModalHeaderPropsType {
+interface ModalLayoutPropsType {
+    body: React.ReactNode;
     title: string;
     closeAction?: () => void;
 }

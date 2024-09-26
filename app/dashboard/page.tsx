@@ -1,11 +1,11 @@
 'use client';
 
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/button/Button";
 import { useEffect, useState } from "react";
 import { topicDummyDataList } from "../lib/placeholder-data";
-import TopicCard from "@/components/ui/TopicCard";
-import CreateTopicModal from "@/components/ui/CreateTopicModal";
-import TestModal from "@/components/ui/TestModal";
+import TopicCard from "@/components/ui/card/TopicCard";
+import CreateTopicModal from "@/components/ui/modal/CreateTopicModal";
+import TestModal from "@/components/ui/modal/TestModal";
 
 
 export default function HomePage() {
@@ -31,11 +31,11 @@ export default function HomePage() {
       <div className="max-w-4xl mx-auto">
         <Button iconType="add" text="New Topic" popup={true} action={handleCreateTopic} />
         <div className="space-y-6 mt-4">
-          {topics.map(({id, name, cards}) => <TopicCard id={id} name={name} cards={cards} testAction={handleStartTest} />)}
+          {topics.map(({ id, name, cards }) => <TopicCard key={id} id={id} name={name} cards={cards} testAction={handleStartTest} />)}
         </div>
       </div>
       {isCreateTopicModalOpen && (
-        <CreateTopicModal closeAction={() => setIsCreateTopicModalOpen(false)}/>)
+        <CreateTopicModal closeAction={() => setIsCreateTopicModalOpen(false)} />)
       }
       {isTestModalOpen && (
         <TestModal closeAction={() => setIsTestModalOpen(false)} />
