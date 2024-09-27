@@ -1,17 +1,17 @@
 import React from "react";
 import LongButton from "../button/LongButton";
-import Input from "../input/TextInput";
 import ModalLayout from "./ModalLayout";
-import { CreateTopicModalPropsType } from "@/app/lib/types";
+import { BaseModalPropsType } from "@/app/lib/types";
 import Button from "../button/Button";
+import TextInput from "../input/TextInput";
 
-export default function TestModal({ closeAction }: CreateTopicModalPropsType) {
+export default function TestModal({ closeAction }: BaseModalPropsType) {
     const body: React.ReactNode = (
         <>
         <div className="mb-6">
             <p className="text-4xl font-bold text-gray-800 text-center my-10">べんきょうします</p>
             <form>
-                <Input placeholder="Answer" />
+                <TextInput placeholder="Answer" />
                 <LongButton text="Check Answer" />
             </form>
         </div>

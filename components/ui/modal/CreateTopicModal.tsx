@@ -1,13 +1,14 @@
-import { CreateTopicModalPropsType } from "@/app/lib/types";
+import { BaseModalPropsType } from "@/app/lib/types";
 import LongButton from "../button/LongButton";
-import Input from "../input/TextInput";
 import ModalLayout from "./ModalLayout";
+import TextInput from "../input/TextInput";
+import { createTopic } from "@/app/lib/actions";
 
-export default function CreateTopicModal({ closeAction }: CreateTopicModalPropsType) {
+export default function CreateTopicModal({ closeAction }: BaseModalPropsType) {
     const body: React.ReactNode = (
         <div className="mb-6">
-            <form>
-                <Input placeholder="Example: Japanese Vocabulary" />
+            <form action={createTopic}>
+                <TextInput placeholder="Example: Japanese Vocabulary" name="name" />
                 <LongButton text="Save" />
             </form>
         </div>

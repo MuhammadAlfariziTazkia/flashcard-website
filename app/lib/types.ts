@@ -9,10 +9,13 @@ export interface BaseInputPropsType {
     placeholder?: string;
 }
 
-export interface ModalLayoutPropsType {
+export interface BaseModalPropsType {
+    closeAction: () => void;
+}
+
+export interface ModalLayoutPropsType extends BaseModalPropsType {
     body: React.ReactNode;
     title: string;
-    closeAction?: () => void;
 }
 
 export interface ButtonPropsType extends BaseButtonPropsType {
@@ -31,9 +34,11 @@ export interface TopicType {
     name: string;
     testAction?: () => void;
     cardListAction?: () => void;
+    addCardAction?: () => void;
     cards: FlashcardDataType[];
 }
 
-export interface CreateTopicModalPropsType {
-    closeAction: () => void;
+export interface Topic {
+    id: string;
+    name: string;
 }
