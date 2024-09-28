@@ -13,6 +13,14 @@ export interface BaseModalPropsType {
     closeAction: () => void;
 }
 
+export interface AddCardModalType extends BaseModalPropsType {
+    topicId: string;
+}
+
+export interface CardListModalType extends BaseModalPropsType {
+    cards: Card[];
+}
+
 export interface ModalLayoutPropsType extends BaseModalPropsType {
     body: React.ReactNode;
     title: string;
@@ -33,12 +41,20 @@ export interface TopicType {
     id: string;
     name: string;
     testAction?: () => void;
-    cardListAction?: () => void;
-    addCardAction?: () => void;
-    cards: FlashcardDataType[];
 }
 
 export interface Topic {
     id: string;
     name: string;
+}
+
+export interface Card {
+    id: string;
+    value_1: string;
+    value_2: string;
+    topic_id: string;
+}
+
+export interface TopicTest extends Topic {
+    test: string;
 }

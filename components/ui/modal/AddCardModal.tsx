@@ -1,15 +1,16 @@
-import { BaseModalPropsType } from "@/app/lib/types"
+import { AddCardModalType } from "@/app/lib/types"
 import TextInput from "../input/TextInput"
 import LongButton from "../button/LongButton"
-import Button from "../button/Button"
 import ModalLayout from "./ModalLayout"
+import { createCard } from "@/app/lib/actions"
 
-export default function AddCardModal({ closeAction }: BaseModalPropsType) {
+export default function AddCardModal({ topicId, closeAction }: AddCardModalType) {
     const body: React.ReactNode = (
         <div className="mb-6">
-            <form>
-                <TextInput placeholder="Question" />
-                <TextInput placeholder="Answer" />
+            <form action={createCard}>
+                <input type="hidden" name="topicId" value={topicId} />
+                <TextInput name="value1" placeholder="Question" />
+                <TextInput name="value2" placeholder="Answer" />
                 <LongButton text="Save" />
             </form>
         </div>
