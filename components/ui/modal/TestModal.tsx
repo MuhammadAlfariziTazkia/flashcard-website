@@ -6,6 +6,7 @@ import Button from "../button/Button";
 import TextInput from "../input/TextInput";
 import DangerAlert from "../alert/DangerAlert";
 import SuccessAlert from "../alert/SuccessAlert";
+import { FlagIcon, PlayIcon } from "lucide-react";
 
 function shuffleArray(cardsArray: Card[]): Card[] {
     return cardsArray.sort(() => Math.random() - 0.5);
@@ -63,16 +64,14 @@ export default function TestModal({ cards, closeAction }: TestModalType) {
                                         ? (
 
                                             <Button
-                                                iconType="flag"
-                                                popup={true}
+                                                iconComponent={<FlagIcon className="button-icon" />}
                                                 text="Finish"
                                                 action={closeAction}
                                             />
                                         )
                                         : (
                                             <Button
-                                                iconType="play"
-                                                popup={true}
+                                                iconComponent={<PlayIcon className="button-icon" />}
                                                 text="Next Card"
                                                 action={handleNextQuestion}
                                             />

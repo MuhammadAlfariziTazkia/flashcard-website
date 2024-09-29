@@ -1,16 +1,17 @@
-import { BaseModalPropsType } from "@/app/lib/types";
+import { FormModal, Modal } from "@/app/lib/types";
 import LongButton from "../button/LongButton";
 import ModalLayout from "./ModalLayout";
 import { createTopic } from "@/app/lib/actions";
 import "@/components/ui/input/input-style.css"
 import React from "react";
 
-export default function CreateTopicModal({ closeAction }: BaseModalPropsType) {
+export default function CreateTopicModal({ closeAction, updateAction }: FormModal) {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            await createTopic(new FormData(event.currentTarget))
+            updateAction();
             closeAction();
+            await createTopic(new FormData(event.currentTarget))
         } catch (error) {
             console.log(error)
         }

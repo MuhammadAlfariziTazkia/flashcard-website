@@ -1,6 +1,7 @@
-export interface BaseButtonPropsType {
+export interface ButtonProps {
     text?: string;
     action?: () => void;
+    iconComponent?: React.ReactNode;
 }
 
 export interface BaseInputPropsType {
@@ -10,31 +11,29 @@ export interface BaseInputPropsType {
     onChange?: (params: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export interface BaseModalPropsType {
+export interface Modal {
     closeAction: () => void;
 }
 
-export interface AddCardModalType extends BaseModalPropsType {
+export interface FormModal extends Modal {
+    updateAction: () => void;
+}
+
+export interface AddCardModalType extends Modal {
     topicId: string;
 }
 
-export interface CardListModalType extends BaseModalPropsType {
+export interface CardListModalType extends Modal {
     cards: Card[];
 }
 
-export interface TestModalType extends BaseModalPropsType {
+export interface TestModalType extends Modal {
     cards: Card[];
 }
 
-export interface ModalLayoutPropsType extends BaseModalPropsType {
+export interface ModalLayoutPropsType extends Modal {
     body: React.ReactNode;
     title: string;
-}
-
-export interface ButtonPropsType extends BaseButtonPropsType {
-    iconType?: string;
-    popup?: boolean;
-    isDisabled?: boolean;
 }
 
 export interface FlashcardDataType {
@@ -43,15 +42,13 @@ export interface FlashcardDataType {
     value2: string;
 }
 
-export interface TopicType {
-    id: string;
-    name: string;
-    testAction?: () => void;
-}
-
 export interface Topic {
     id: string;
     name: string;
+}
+
+export interface TopicCardType extends Topic{
+    updateAction: () => void;
 }
 
 export interface Card {
@@ -65,6 +62,6 @@ export interface TopicTest extends Topic {
     test: string;
 }
 
-export interface Alert {
+export interface Message {
     message: string;
 }

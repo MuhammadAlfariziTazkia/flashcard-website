@@ -42,3 +42,15 @@ export async function createCard(formData: FormData) {
         VALUES (${value1}, ${value2}, ${topicId})
     `;
 }
+
+export async function deleteCard (id: string) {
+    await sql`
+        DELETE FROM cards WHERE id = ${id}
+    `;
+}
+
+export async function deleteTopic (id: string) {
+    await sql`
+        DELETE FROM topics WHERE id = ${id}
+    `  
+}

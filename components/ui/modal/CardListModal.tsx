@@ -1,9 +1,24 @@
-import EditButton from "../button/EditButton";
 import TrashButton from "../button/TrashButton";
 import CloseButton from "../button/CloseButton";
 import { CardListModalType } from "@/app/lib/types";
+import { deleteCard } from "@/app/lib/actions";
+import { useState } from "react";
+import LoadingModal from "./LoadingModal";
 
 export default function CardListModal({ cards, closeAction }: CardListModalType) {
+    const [isLoading, setIsLoading] = useState(false);
+    
+    const handleDeleteCard = async (id: string) => {
+        setIsLoading(true);
+        try {
+            await deleteCard(id);
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <div className="fixed inset-0 bg-gray-100 bg-opacity-90 flex items-center justify-center p-4">
             <div className="bg-gray-100 p-8 rounded-2xl w-full max-w-2xl shadow-[10px_10px_20px_#bebebe,-10px_-10px_20px_#ffffff] overflow-y-auto max-h-[90vh]">
@@ -20,14 +35,17 @@ export default function CardListModal({ cards, closeAction }: CardListModalType)
                                     <p className="text-gray-600">{card.value_2}</p>
                                 </div>
                                 <div className="flex space-x-2">
-                                    <EditButton />
-                                    <TrashButton />
+                                    {/* <EditButton /> */}
+                                    <TrashButton action={() => handleDeleteCard(card.id)} />
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+            {isLoading && (
+                <LoadingModal message="Deleting..." />
+            )}
         </div>
     )
 }

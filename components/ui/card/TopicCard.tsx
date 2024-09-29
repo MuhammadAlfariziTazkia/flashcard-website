@@ -1,13 +1,14 @@
-import { Card, TopicType } from "@/app/lib/types";
+import { Card, Topic, TopicCardType } from "@/app/lib/types";
 import Button from "../button/Button";
 import { useEffect, useState } from "react";
 import CardListModal from "../modal/CardListModal";
 import { fetchCards } from "@/app/lib/data";
 import AddCardModal from "../modal/AddCardModal";
 import TestModal from "../modal/TestModal";
-import DangerAlert from "../alert/DangerAlert";
+import { ListIcon, PlayIcon, PlusIcon, TrashIcon, XIcon } from "lucide-react";
+import { deleteTopic } from "@/app/lib/actions";
 
-export default function TopicCard({ id, name, testAction }: TopicType) {
+export default function TopicCard({ id, name, updateAction }: TopicCardType) {
   const [isCardListModalOpen, setIsCardListModalOpen] = useState(false);
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
   const [isTestModalOpen, setIsTestModalOpen] = useState(false);
@@ -24,17 +25,25 @@ export default function TopicCard({ id, name, testAction }: TopicType) {
     loadCards();
   }, [cards])
 
-
+  const handleDeleteTopic = () => {
+    try {
+      updateAction();
+      deleteTopic(id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
-    <div key={id} className="bg-gray-100 p-6 rounded-xl shadow-[5px_5px_10px_#bebebe,-5px_-5px_10px_#ffffff]">
+    <div key={id} className="bg-zinc-50 p-6">
       <h2 className="text-2xl font-semibold mb-2 text-gray-800">{name}</h2>
       <p className="text-gray-600 mb-4">{cards.length} Flashcards</p>
       <div className="flex space-x-4">
-        <Button iconType="add" text="Add Card" action={() => setIsAddCardModalOpen(true)} />
-        <Button iconType="list" text="View Cards" action={() => setIsCardListModalOpen(true)} />
+        <Button iconComponent={<PlusIcon className="button-icon"/>} text="Add Card" action={() => setIsAddCardModalOpen(true)} />
+        <Button iconComponent={<ListIcon className="button-icon"/>} text="View Cards" action={() => setIsCardListModalOpen(true)} />
         {cards.length && (
-          <Button iconType="play" text="Start Test" action={() => setIsTestModalOpen(true)} />
+          <Button iconComponent={<PlayIcon className="button-icon"/>} text="Start Test" action={() => setIsTestModalOpen(true)} />
         )}
+        <Button iconComponent={<TrashIcon className="button-icon"/>} text="Delete Topic" action={handleDeleteTopic} />
       </div>
       {isCardListModalOpen && (
         <CardListModal cards={cards} closeAction={() => setIsCardListModalOpen(false)} />

@@ -4,33 +4,32 @@ import Button from "@/components/ui/button/Button";
 import { useEffect, useState } from "react";
 import TopicCard from "@/components/ui/card/TopicCard";
 import CreateTopicModal from "@/components/ui/modal/CreateTopicModal";
-import TestModal from "@/components/ui/modal/TestModal";
-import { Topic, TopicType } from "../lib/types";
-import AddCardModal from "@/components/ui/modal/AddCardModal";
+import { Topic } from "../lib/types";
 import { fetchTopics } from "../lib/data";
+import { PlusIcon } from "lucide-react";
+import LoadingModal from "@/components/ui/modal/LoadingModal";
 
 
 export default function HomePage() {
-  const [topics, setTopics] = useState<TopicType[]>([])
+  const [topics, setTopics] = useState<Topic[]>([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [isTopicUpdated, setIsTopicUpdated] = useState(false);
   const [isCreateTopicModalOpen, setIsCreateTopicModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadTopics() {
       try {
-        const data = await fetchTopics();
-        const fetchedData = data.map((topic: Topic): TopicType => {
-          return {
-            id: topic.id,
-            name: topic.name,
-          }
-        })
-        setTopics(fetchedData);
+        setIsLoading(true); 
+        setTopics(await fetchTopics());
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false); 
+        setIsTopicUpdated(false);
       }
     }
     loadTopics();
-  }, [topics])
+  }, [isTopicUpdated])
 
   const handleCreateTopic = () => {
     setIsCreateTopicModalOpen(true);
@@ -38,16 +37,26 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Remind.me Flashcards</h1>
+      <h1 className="text-4xl mb-2 font-bold text-center text-gray-800">
+        Dashboards
+      </h1>
+      <p className="text-center text-gray-800 text-lg mb-8">
+        Remember new things in a easy and effective way
+      </p>
       <div className="max-w-4xl mx-auto">
-        <Button iconType="add" text="New Topic" popup={true} action={handleCreateTopic} />
+        <Button text="New Topic" action={handleCreateTopic} iconComponent={<PlusIcon className="button-icon"/>}/>
         <div className="space-y-6 mt-4">
-          {topics.map(({ id, name }) => <TopicCard key={id} id={id} name={name}/>)}
+          {topics.map(({ id, name }) => (
+            <TopicCard key={id} id={id} name={name} updateAction={() => setIsTopicUpdated(true)}/>
+          ))}
         </div>
       </div>
       {isCreateTopicModalOpen && (
-        <CreateTopicModal closeAction={() => setIsCreateTopicModalOpen(false)} />)
+        <CreateTopicModal closeAction={() => setIsCreateTopicModalOpen(false)} updateAction={() => setIsTopicUpdated(true)} />)
       }
+      {isLoading && (
+        <LoadingModal message="Refreshing Topics..."/>
+      )}
     </div>
   )
 }
