@@ -7,10 +7,6 @@ import AddCardModal from "../modal/AddCardModal";
 import TestModal from "../modal/TestModal";
 import DangerAlert from "../alert/DangerAlert";
 
-function shuffleArray(cardsArray: Card[]): Card[] {
-  return cardsArray.sort(() => Math.random() - 0.5);
-}
-
 export default function TopicCard({ id, name, testAction }: TopicType) {
   const [isCardListModalOpen, setIsCardListModalOpen] = useState(false);
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
@@ -47,7 +43,7 @@ export default function TopicCard({ id, name, testAction }: TopicType) {
         <AddCardModal topicId={id} closeAction={() => setIsAddCardModalOpen(false)} />
       )}
       {isTestModalOpen && (
-        <TestModal cards={shuffleArray(cards)} closeAction={() => setIsTestModalOpen(false)} />
+        <TestModal cards={cards} closeAction={() => setIsTestModalOpen(false)} />
       )}
     </div>
   )
