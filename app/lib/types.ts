@@ -7,6 +7,7 @@ export interface BaseInputPropsType {
     name?: string;
     value?: string;
     placeholder?: string;
+    onChange?: (params: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface BaseModalPropsType {
@@ -33,6 +34,7 @@ export interface ModalLayoutPropsType extends BaseModalPropsType {
 export interface ButtonPropsType extends BaseButtonPropsType {
     iconType?: string;
     popup?: boolean;
+    isDisabled?: boolean;
 }
 
 export interface FlashcardDataType {
@@ -61,4 +63,8 @@ export interface Card {
 
 export interface TopicTest extends Topic {
     test: string;
+}
+
+export interface Alert {
+    message: string;
 }

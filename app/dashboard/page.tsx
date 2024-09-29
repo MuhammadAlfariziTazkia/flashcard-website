@@ -13,8 +13,6 @@ import { fetchTopics } from "../lib/data";
 export default function HomePage() {
   const [topics, setTopics] = useState<TopicType[]>([])
   const [isCreateTopicModalOpen, setIsCreateTopicModalOpen] = useState(false);
-  const [isTestModalOpen, setIsTestModalOpen] = useState(false);
-  const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadTopics() {
@@ -32,14 +30,10 @@ export default function HomePage() {
       }
     }
     loadTopics();
-  }, [])
+  }, [topics])
 
   const handleCreateTopic = () => {
     setIsCreateTopicModalOpen(true);
-  }
-
-  const handleStartTest = () => {
-    setIsTestModalOpen(true);
   }
 
   return (
@@ -48,15 +42,12 @@ export default function HomePage() {
       <div className="max-w-4xl mx-auto">
         <Button iconType="add" text="New Topic" popup={true} action={handleCreateTopic} />
         <div className="space-y-6 mt-4">
-          {topics.map(({ id, name }) => <TopicCard key={id} id={id} name={name} testAction={handleStartTest} />)}
+          {topics.map(({ id, name }) => <TopicCard key={id} id={id} name={name}/>)}
         </div>
       </div>
       {isCreateTopicModalOpen && (
         <CreateTopicModal closeAction={() => setIsCreateTopicModalOpen(false)} />)
       }
-      {isTestModalOpen && (
-        <TestModal closeAction={() => setIsTestModalOpen(false)} />
-      )}
     </div>
   )
 }

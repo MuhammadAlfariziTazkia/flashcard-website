@@ -11,9 +11,9 @@ function getIconComponent(value: string) {
  }
 }
 
-export default function Button({iconType = "", text = "", popup = false, action} : ButtonPropsType) {
+export default function Button({iconType = "", text = "", popup = false, action, isDisabled} : ButtonPropsType) {
     return (
-        <button className={popup ? "pop-button" : "deep-button"} onClick={action}>
+        <button className={popup ? "pop-button" : "deep-button"} onClick={action} disabled={isDisabled}>
             {getIconComponent(iconType)}
             {text}
         </button>
