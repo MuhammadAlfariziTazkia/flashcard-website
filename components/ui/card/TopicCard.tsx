@@ -4,19 +4,13 @@ import { useEffect, useState } from "react";
 import CardListModal from "../modal/CardListModal";
 import { fetchCards } from "@/app/lib/data";
 import AddCardModal from "../modal/AddCardModal";
+import TestModal from "../modal/TestModal";
 
 export default function TopicCard({ id, name, testAction }: TopicType) {
   const [isCardListModalOpen, setIsCardListModalOpen] = useState(false);
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
+  const [isTestModalOpen, setIsTestModalOpen] = useState(false);
   const [cards, setCards] = useState<Card[]>([])
-
-  const handleCardListModalOpen = () => {
-    setIsCardListModalOpen(true);
-  }
-
-  const handleAddCardModalOpen = () => {
-    setIsAddCardModalOpen(true);
-  }
 
   useEffect(() => {
     async function loadCards() {
@@ -34,15 +28,18 @@ export default function TopicCard({ id, name, testAction }: TopicType) {
       <h2 className="text-2xl font-semibold mb-2 text-gray-800">{name}</h2>
       <p className="text-gray-600 mb-4">Cards: {cards.length}</p>
       <div className="flex space-x-4">
-        <Button iconType="play" text="Start Test" action={testAction} />
-        <Button iconType="add" text="Add Card" action={handleAddCardModalOpen} />
-        <Button iconType="list" text="View Cards" action={handleCardListModalOpen} />
+        <Button iconType="play" text="Start Test" action={() => {setIsTestModalOpen(true)}} />
+        <Button iconType="add" text="Add Card" action={() => setIsAddCardModalOpen(true)} />
+        <Button iconType="list" text="View Cards" action={() => setIsCardListModalOpen(true)} />
       </div>
       {isCardListModalOpen && (
         <CardListModal cards={cards} closeAction={() => setIsCardListModalOpen(false)} />
       )}
       {isAddCardModalOpen && (
         <AddCardModal topicId={id} closeAction={() => setIsAddCardModalOpen(false)} />
+      )}
+      {isTestModalOpen && (
+        <TestModal cards={cards} closeAction={() => setIsTestModalOpen(false)} />
       )}
     </div>
   )

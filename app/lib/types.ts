@@ -21,6 +21,10 @@ export interface CardListModalType extends BaseModalPropsType {
     cards: Card[];
 }
 
+export interface TestModalType extends BaseModalPropsType {
+    cards: Card[];
+}
+
 export interface ModalLayoutPropsType extends BaseModalPropsType {
     body: React.ReactNode;
     title: string;
