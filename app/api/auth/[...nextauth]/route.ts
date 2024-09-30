@@ -2,7 +2,9 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt'; // untuk compare password yang di-hash
-import { getUserByEmail } from '@/lib/db'; // fungsi untuk ambil user dari database
+import { getUser } from '@/app/lib/data';
+
+
 
 export const authOptions = {
   providers: [
@@ -13,12 +15,13 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const user = await getUserByEmail(credentials?.email);
+        if (credentials == undefined) return null;
+        const user = await getUser(credentials?.email);
 
-        if (credentials && await bcrypt.compare(credentials.password, user.password)) {
+        if (await bcrypt.compare(credentials.password, user.password)) {
           return { id: user.id, name: user.name, email: user.email };
         }
-        
+
         return null;
       },
     }),
