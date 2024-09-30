@@ -14,10 +14,11 @@ export const authOptions = {
       },
       async authorize(credentials) {
         const user = await getUserByEmail(credentials?.email);
-        
-        if (bcrypt.compare(credentials.password, user.password)) {
+
+        if (credentials && await bcrypt.compare(credentials.password, user.password)) {
           return { id: user.id, name: user.name, email: user.email };
         }
+        
         return null;
       },
     }),
