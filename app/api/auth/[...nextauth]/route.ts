@@ -3,8 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt'; // untuk compare password yang di-hash
 import { getUser } from '@/app/lib/data';
-
-
+import { JWT } from 'next-auth/jwt'; // Import tipe JWT dari next-auth
 
 export const authOptions = {
   providers: [
@@ -17,8 +16,7 @@ export const authOptions = {
       async authorize(credentials) {
         if (credentials == undefined) return null;
         const user = await getUser(credentials?.email);
-
-        if (await bcrypt.compare(credentials.password, user.password)) {
+        if (user && await bcrypt.compare(credentials.password, user.password)) {
           return { id: user.id, name: user.name, email: user.email };
         }
 
@@ -29,6 +27,19 @@ export const authOptions = {
   pages: {
     signIn: '/login', // redirect ke halaman login custom
   },
+  callbacks: {
+    async jwt({ token, user }: { token: JWT; user?: any }) {
+      if (user) {
+        token.id = user.id; // Pastikan 'id' ditambahkan ke token
+      }
+      return token;
+    },
+    async session({ session, token }: { session: any; token: JWT }) {
+      session.user.id = token.id;
+      return session;
+    },
+  },
+
 };
 
 const handler = NextAuth(authOptions);

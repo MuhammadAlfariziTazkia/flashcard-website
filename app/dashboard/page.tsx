@@ -8,6 +8,8 @@ import { Topic } from "../lib/types";
 import { fetchTopics } from "../lib/data";
 import { PlusIcon } from "lucide-react";
 import LoadingModal from "@/components/ui/modal/LoadingModal";
+import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 
 export default function HomePage() {
@@ -15,6 +17,21 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isTopicUpdated, setIsTopicUpdated] = useState(false);
   const [isCreateTopicModalOpen, setIsCreateTopicModalOpen] = useState(false);
+  const [userId, setUserId] = useState("");
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (session && session.user) {
+      setUserId(session.user.id)
+    }
+  }, [])
+  
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/login');
+    }
+  }, [status]);
 
   useEffect(() => {
     async function loadTopics() {

@@ -66,3 +66,10 @@ export interface TopicTest extends Topic {
 export interface Message {
     message: string;
 }
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+  };

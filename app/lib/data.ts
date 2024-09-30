@@ -1,7 +1,7 @@
 'use server'
 
 import { sql } from "@vercel/postgres";
-import { Card, Topic } from "./types";
+import { Card, Topic, User } from "./types";
 
 export async function fetchTopics() {
    try {
