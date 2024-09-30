@@ -31,8 +31,8 @@ export default function CardListModal({ cards, closeAction }: CardListModalType)
                         <div key={card.id} className="bg-gray-100 p-4 rounded-xl shadow-[inset_5px_5px_10px_#bebebe,inset_-5px_-5px_10px_#ffffff]">
                             <div className="flex justify-between items-center">
                                 <div>
-                                    <p className="font-semibold text-gray-800">{card.value_1}</p>
-                                    <p className="text-gray-600">{card.value_2}</p>
+                                    <p className="font-semibold text-gray-800 text-xl">{card.value_1}</p>
+                                    <p className="text-gray-600 text-lg">{card.value_2}</p>
                                 </div>
                                 <div className="flex space-x-2">
                                     {/* <EditButton /> */}

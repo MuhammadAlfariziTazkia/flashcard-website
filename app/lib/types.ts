@@ -28,6 +28,7 @@ export interface CardListModalType extends Modal {
 }
 
 export interface TestModalType extends Modal {
+    topicName: string;
     cards: Card[];
 }
 

@@ -16,7 +16,7 @@ function isQuestionEnd(length: number, currentIndex: number) {
     return currentIndex == length - 1;
 }
 
-export default function TestModal({ cards, closeAction }: TestModalType) {
+export default function TestModal({ cards, closeAction, topicName }: TestModalType) {
     const [index, setIndex] = useState(0);
     const [answer, setAnswer] = useState("");
     const [correctness, setCorrectness] = useState(0);
@@ -84,5 +84,5 @@ export default function TestModal({ cards, closeAction }: TestModalType) {
             )}
         </>
     )
-    return <ModalLayout title="Topic Name" body={body} closeAction={closeAction} />
+    return <ModalLayout title={topicName} body={body} closeAction={closeAction} />
 }
