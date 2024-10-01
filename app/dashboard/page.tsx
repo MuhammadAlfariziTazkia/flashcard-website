@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import TopicCard from "@/components/ui/card/TopicCard";
 import CreateTopicModal from "@/components/ui/modal/CreateTopicModal";
 import { Topic } from "../lib/types";
-import { fetchTopics } from "../lib/data";
+import { fetchTopicsByUserId } from "../lib/data";
 import { PlusIcon } from "lucide-react";
 import LoadingModal from "@/components/ui/modal/LoadingModal";
 import { useSession } from "next-auth/react";
@@ -22,22 +22,22 @@ export default function HomePage() {
   const router = useRouter();
   
   useEffect(() => {
-    if (session && session.user) {
-      setUserId(session.user.id)
-    }
-  }, [])
-  
-  useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login');
+    } 
+    else {
+      if (session && session.user) {
+        setUserId(session.user.id)
+      }
     }
   }, [status]);
 
   useEffect(() => {
     async function loadTopics() {
+      if (userId.trim().length == 0) return;
       try {
         setIsLoading(true); 
-        setTopics(await fetchTopics());
+        setTopics(await fetchTopicsByUserId(userId));
       } catch (error) {
         console.log(error);
       } finally {
@@ -46,12 +46,12 @@ export default function HomePage() {
       }
     }
     loadTopics();
-  }, [isTopicUpdated])
+  }, [isTopicUpdated, userId])
 
   const handleCreateTopic = () => {
     setIsCreateTopicModalOpen(true);
   }
-
+  
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-4xl mb-2 font-bold text-center text-gray-800">
@@ -64,12 +64,12 @@ export default function HomePage() {
         <Button text="New Topic" action={handleCreateTopic} iconComponent={<PlusIcon className="button-icon"/>}/>
         <div className="space-y-6 mt-4">
           {topics.map(({ id, name }) => (
-            <TopicCard key={id} id={id} name={name} updateAction={() => setIsTopicUpdated(true)}/>
+            <TopicCard key={id} user_id={userId} id={id} name={name} updateAction={() => setIsTopicUpdated(true)}/>
           ))}
         </div>
       </div>
       {isCreateTopicModalOpen && (
-        <CreateTopicModal closeAction={() => setIsCreateTopicModalOpen(false)} updateAction={() => setIsTopicUpdated(true)} />)
+        <CreateTopicModal userId={userId} closeAction={() => setIsCreateTopicModalOpen(false)} updateAction={() => setIsTopicUpdated(true)} />)
       }
       {isLoading && (
         <LoadingModal message="Refreshing Topics..."/>

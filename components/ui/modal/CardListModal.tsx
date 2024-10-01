@@ -5,13 +5,14 @@ import { deleteCard } from "@/app/lib/actions";
 import { useState } from "react";
 import LoadingModal from "./LoadingModal";
 
-export default function CardListModal({ cards, closeAction }: CardListModalType) {
+export default function CardListModal({ cards, closeAction, updateAction }: CardListModalType) {
     const [isLoading, setIsLoading] = useState(false);
     
     const handleDeleteCard = async (id: string) => {
         setIsLoading(true);
         try {
             await deleteCard(id);
+            updateAction();
         } catch (error) {
             console.log(error)
         } finally {

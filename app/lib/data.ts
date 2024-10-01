@@ -3,9 +3,9 @@
 import { sql } from "@vercel/postgres";
 import { Card, Topic, User } from "./types";
 
-export async function fetchTopics() {
+export async function fetchTopicsByUserId(userId: string) {
    try {
-      const data = await sql<Topic>`SELECT * FROM topics`;
+      const data = await sql<Topic>`SELECT * FROM topics WHERE user_id = ${userId}`;
       return data.rows;
    } catch (error) {
       console.log(error)

@@ -4,6 +4,7 @@ import { sql } from "@vercel/postgres";
 import { z } from "zod"
 
 const TopicFormSchema = z.object({
+    user_id: z.string(),
     id: z.string(),
     name: z.string()
 });
@@ -20,13 +21,14 @@ const CreateTopic = TopicFormSchema.omit({ id: true });
 const CreateCard = CardFormSchema.omit({id: true});
 
 export async function createTopic(formData: FormData) {
-    const { name } = CreateTopic.parse({
+    const { name, user_id } = CreateTopic.parse({
+        user_id: formData.get("user_id"),
         name: formData.get("name")
     })
 
     await sql`
-        INSERT INTO topics (name)
-        VALUES (${name})
+        INSERT INTO topics (name, user_id)
+        VALUES (${name}, ${user_id})
     `;
 }
 
