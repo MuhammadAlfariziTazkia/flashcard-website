@@ -2,6 +2,7 @@
 
 import { sql } from "@vercel/postgres";
 import { z } from "zod"
+import bcrypt from 'bcrypt';
 
 const TopicFormSchema = z.object({
     user_id: z.string(),
@@ -16,9 +17,16 @@ const CardFormSchema = z.object({
     topicId: z.string()
 })
 
-const CreateTopic = TopicFormSchema.omit({ id: true });
+const UserFormSchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    password: z.string()
+})
 
+const CreateTopic = TopicFormSchema.omit({ id: true });
 const CreateCard = CardFormSchema.omit({id: true});
+const CreateUser = UserFormSchema.omit({id: true})
 
 export async function createTopic(formData: FormData) {
     const { name, user_id } = CreateTopic.parse({
@@ -43,6 +51,26 @@ export async function createCard(formData: FormData) {
         INSERT INTO cards (value_1, value_2, topic_id)
         VALUES (${value1}, ${value2}, ${topicId})
     `;
+}
+
+export async function createUser(formData: FormData) {
+    const {name, email, password} = CreateUser.parse({
+        name: formData.get("name"),
+        email: formData.get("email"),
+        password: formData.get("password")
+    })
+
+    const saltRounds = 10;
+    try {
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        await sql`
+            INSERT INTO users (name, email, password)
+            VALUES (${name}, ${email}, ${hashedPassword});
+        `
+        console.log("Create user success");
+    } catch (error) {
+        console.log("Something wrong when bcrypt passwordL: " + error)
+    }
 }
 
 export async function deleteCard (id: string) {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { createUser } from "../lib/actions";
 
 export default function RegisterPage () {
     return (
@@ -7,7 +8,7 @@ export default function RegisterPage () {
             <h1 className="text-4xl font-bold text-center mb-8 text-gray-900">
               Join Remind.me
             </h1>
-            <form className="space-y-6">
+            <form className="space-y-6" action={createUser}>
               <div>
                 <label htmlFor="name" className="text-sm font-medium text-gray-700">
                   Name
@@ -15,6 +16,7 @@ export default function RegisterPage () {
                 <input
                   id="name"
                   type="text"
+                  name="name"
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-none text-sm
                              focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                   placeholder="John Doe"
@@ -28,6 +30,7 @@ export default function RegisterPage () {
                 <input
                   id="email"
                   type="email"
+                  name="email"
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-none text-sm
                              focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                   placeholder="you@example.com"
@@ -41,6 +44,7 @@ export default function RegisterPage () {
                 <input
                   id="password"
                   type="password"
+                  name="password"
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-none text-sm
                              focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                   placeholder="••••••••"
