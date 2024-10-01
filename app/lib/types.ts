@@ -15,19 +15,23 @@ export interface Modal {
     closeAction: () => void;
 }
 
-export interface FormModal extends Modal {
+export interface TopicFormModal extends Modal {
+    userId: string;
     updateAction: () => void;
 }
 
 export interface AddCardModalType extends Modal {
     topicId: string;
+    updateAction: () => void;
 }
 
 export interface CardListModalType extends Modal {
     cards: Card[];
+    updateAction: () => void;
 }
 
 export interface TestModalType extends Modal {
+    topicName: string;
     cards: Card[];
 }
 
@@ -45,6 +49,7 @@ export interface FlashcardDataType {
 export interface Topic {
     id: string;
     name: string;
+    user_id: string;
 }
 
 export interface TopicCardType extends Topic{
@@ -65,3 +70,10 @@ export interface TopicTest extends Topic {
 export interface Message {
     message: string;
 }
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+  };
