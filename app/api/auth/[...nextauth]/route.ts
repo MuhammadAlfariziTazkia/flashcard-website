@@ -6,6 +6,7 @@ import { getUser } from '@/app/lib/data';
 import { JWT } from 'next-auth/jwt'; // Import tipe JWT dari next-auth
 
 const authOptions = { 
+  secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: 'Credentials',
