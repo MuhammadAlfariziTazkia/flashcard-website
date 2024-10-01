@@ -86,7 +86,7 @@ export default function HomePage() {
         </div>
       </div>
       {isCreateTopicModalOpen && (
-        <CreateTopicModal user_id={user?.id || ""} closeAction={() => setIsCreateTopicModalOpen(false)} updateAction={() => setIsTopicUpdated(true)} />)
+        <CreateTopicModal userId={user?.id || ""} closeAction={() => setIsCreateTopicModalOpen(false)} updateAction={() => setIsTopicUpdated(true)} />)
       }
       {isLoading && (
         <LoadingModal message="Refreshing Topics..." />

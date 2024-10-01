@@ -5,7 +5,7 @@ import { createTopic } from "@/app/lib/actions";
 import "@/components/ui/input/input-style.css"
 import React from "react";
 
-export default function CreateTopicModal({ closeAction, updateAction, user_id }: TopicFormModal) {
+export default function CreateTopicModal({ closeAction, updateAction, userId }: TopicFormModal) {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -20,7 +20,7 @@ export default function CreateTopicModal({ closeAction, updateAction, user_id }:
     const body: React.ReactNode = (
         <div className="mb-6">
             <form onSubmit={handleSubmit}>
-                <input type="hidden" name="user_id" value={user_id} />
+                <input type="hidden" name="user_id" value={userId} />
                 <input
                     type="text"
                     name="name"
