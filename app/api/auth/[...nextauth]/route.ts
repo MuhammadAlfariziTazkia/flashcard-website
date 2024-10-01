@@ -1,11 +1,11 @@
 // app/api/auth/[...nextauth]/route.ts
-import NextAuth, { Session, User } from 'next-auth';
+import NextAuth, { AuthOptions, Session, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt'; // untuk compare password yang di-hash
 import { getUser } from '@/app/lib/data';
 import { JWT } from 'next-auth/jwt'; // Import tipe JWT dari next-auth
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
