@@ -1,4 +1,4 @@
-import { Modal, TopicFormModal } from "@/app/lib/types";
+import { TopicFormModal } from "@/app/lib/types";
 import LongButton from "../button/LongButton";
 import ModalLayout from "./ModalLayout";
 import { createTopic } from "@/app/lib/actions";

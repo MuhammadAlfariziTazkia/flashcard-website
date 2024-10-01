@@ -1,5 +1,5 @@
 // app/api/auth/[...nextauth]/route.ts
-import NextAuth from 'next-auth';
+import NextAuth, { Session, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt'; // untuk compare password yang di-hash
 import { getUser } from '@/app/lib/data';
@@ -28,14 +28,14 @@ export const authOptions = {
     signIn: '/login', // redirect ke halaman login custom
   },
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: any }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id; // Pastikan 'id' ditambahkan ke token
       }
       return token;
     },
-    async session({ session, token }: { session: any; token: JWT }) {
-      session.user.id = token.id;
+    async session({ session, token }: { session: Session; token: JWT }) {
+      session.user.id = token.id as string;
       return session;
     },
   },

@@ -1,11 +1,11 @@
-import { Card, Topic, TopicCardType } from "@/app/lib/types";
+import { Card, TopicCardType } from "@/app/lib/types";
 import Button from "../button/Button";
 import { useEffect, useState } from "react";
 import CardListModal from "../modal/CardListModal";
 import { fetchCards } from "@/app/lib/data";
 import AddCardModal from "../modal/AddCardModal";
 import TestModal from "../modal/TestModal";
-import { ListIcon, PlayIcon, PlusIcon, TrashIcon, XIcon } from "lucide-react";
+import { ListIcon, PlayIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { deleteTopic } from "@/app/lib/actions";
 
 export default function TopicCard({ id, name, updateAction }: TopicCardType) {
