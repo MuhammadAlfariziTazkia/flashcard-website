@@ -1,11 +1,11 @@
-import { FormModal, Modal } from "@/app/lib/types";
+import { Modal, TopicFormModal } from "@/app/lib/types";
 import LongButton from "../button/LongButton";
 import ModalLayout from "./ModalLayout";
 import { createTopic } from "@/app/lib/actions";
 import "@/components/ui/input/input-style.css"
 import React from "react";
 
-export default function CreateTopicModal({ closeAction, updateAction }: FormModal) {
+export default function CreateTopicModal({ closeAction, updateAction, user_id }: TopicFormModal) {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -20,6 +20,7 @@ export default function CreateTopicModal({ closeAction, updateAction }: FormModa
     const body: React.ReactNode = (
         <div className="mb-6">
             <form onSubmit={handleSubmit}>
+                <input type="hidden" name="user_id" value={user_id} />
                 <input
                     type="text"
                     name="name"
