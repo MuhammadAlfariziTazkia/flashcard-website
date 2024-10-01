@@ -40,7 +40,7 @@ async function seedUsers() {
 
 async function addColumnUserIdOnTopics() {
     await client.sql`
-        ALTER TABLE topics ADD user_id varchar(64);
+        ALTER TABLE topics ADD COLUMN IF NOT EXISTS user_id varchar(64);
     `
 }
 
