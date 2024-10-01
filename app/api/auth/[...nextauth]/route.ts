@@ -1,11 +1,11 @@
 // app/api/auth/[...nextauth]/route.ts
-import NextAuth, { AuthOptions, Session, User } from 'next-auth';
+import NextAuth, { Session, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import bcrypt from 'bcrypt'; // untuk compare password yang di-hash
+import bcrypt from 'bcrypt'; // untuk membandingkan password yang di-hash
 import { getUser } from '@/app/lib/data';
 import { JWT } from 'next-auth/jwt'; // Import tipe JWT dari next-auth
 
-export const authOptions: AuthOptions = {
+const authOptions = { 
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -14,18 +14,17 @@ export const authOptions: AuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (credentials == undefined) return null;
-        const user = await getUser(credentials?.email);
+        if (!credentials) return null;
+        const user = await getUser(credentials.email);
         if (user && await bcrypt.compare(credentials.password, user.password)) {
           return { id: user.id, name: user.name, email: user.email };
         }
-
         return null;
       },
     }),
   ],
   pages: {
-    signIn: '/login', // redirect ke halaman login custom
+    signIn: '/login', // redirect ke halaman login kustom
   },
   callbacks: {
     async jwt({ token, user }: { token: JWT; user?: User }) {
@@ -39,7 +38,6 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-
 };
 
 const handler = NextAuth(authOptions);
