@@ -25,6 +25,7 @@ export default function TestModal({ topicId, closeAction, topicName }: TestModal
             const data = await fetchCards(topicId)
             setCards(data);
             setCardsCount(data.length)
+            setIndex(getRandomNumber(0, data.length))
         }
         loadCards();
     }, [])
