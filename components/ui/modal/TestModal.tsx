@@ -6,7 +6,7 @@ import Button from "../button/Button";
 import CustomInput from "../input/CustomInput";
 import DangerAlert from "../alert/DangerAlert";
 import SuccessAlert from "../alert/SuccessAlert";
-import { FlagIcon, PlayIcon } from "lucide-react";
+import { PlayIcon } from "lucide-react";
 import { fetchCards } from "@/app/lib/data";
 
 function getRandomNumber(min: number, max: number): number {
@@ -37,7 +37,6 @@ export default function TestModal({ topicId, closeAction, topicName }: TestModal
         event.preventDefault();
         const input = answer.toLowerCase().replaceAll(" ", "");
         const expected = cards[index].value_2.toLowerCase().replaceAll(" ", "");
-        console.log(input == expected);
         if (input == expected) setCorrectness(3);
         else if (input.length > 0) setCorrectness(2);
     }

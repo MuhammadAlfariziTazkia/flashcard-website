@@ -46,6 +46,7 @@ export default function HomePage() {
           topicsAndCardObjTemp[data.id] = data.count;
         });
         setTopicsAndCardsCount(topicsAndCardObjTemp)
+        console.log("LALALA")
       } catch (error) {
         console.log(error);
       } finally {
