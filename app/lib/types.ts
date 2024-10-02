@@ -2,12 +2,16 @@ export interface ButtonProps {
     text?: string;
     action?: () => void;
     iconComponent?: React.ReactNode;
+    type?: "submit" | "reset" | "button" | undefined;
 }
 
-export interface BaseInputPropsType {
+export interface CustomInputProps {
+    id?: string;
     name?: string;
     value?: string;
+    type?: string;
     placeholder?: string;
+    required?: boolean;
     onChange?: (params: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -26,13 +30,13 @@ export interface AddCardModalType extends Modal {
 }
 
 export interface CardListModalType extends Modal {
-    cards: Card[];
+    topicId: string;
     updateAction: () => void;
 }
 
 export interface TestModalType extends Modal {
     topicName: string;
-    cards: Card[];
+    topicId: string;
 }
 
 export interface ModalLayoutPropsType extends Modal {
@@ -54,6 +58,7 @@ export interface Topic {
 
 export interface TopicCardType extends Topic{
     updateAction: () => void;
+    cardCount: number;
 }
 
 export interface Card {
@@ -77,3 +82,12 @@ export interface User {
     email: string;
     password: string;
   };
+
+export interface TopicAndCardsCount {
+    id: string;
+    count: number;
+}
+
+export interface CardCount {
+    count: number;
+}

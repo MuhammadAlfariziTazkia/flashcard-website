@@ -1,10 +1,10 @@
-// app/login/page.tsx
 'use client';
 
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Link, PlusIcon } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
+import CustomInput from '@/components/ui/input/CustomInput';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,9 +21,9 @@ export default function LoginPage() {
     });
 
     if (res?.error) {
-      setError('Login gagal. Cek kembali email dan password.');
+      setError('Failed, please re-check email and passowrd');
     } else {
-      router.push('/dashboard'); // Redirect setelah login
+      router.push('/dashboard');
     }
   };
 
@@ -38,31 +38,13 @@ export default function LoginPage() {
             <label htmlFor="email" className="text-sm font-medium text-gray-700">
               Email
             </label>
-            <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-              id="email"
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-none text-sm
-                         focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
-              required
-            />
+            <CustomInput type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} name="email" id="email" />
           </div>
           <div>
             <label htmlFor="password" className="text-sm font-medium text-gray-700">
               Password
             </label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-none text-sm
-                         focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
-              required
-            />
+            <CustomInput type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="password" />
           </div>
           <button
             type="submit"
@@ -77,16 +59,6 @@ export default function LoginPage() {
             </>
           )}
         </form>
-        <div className="mt-6 text-center">
-          <Link href="/register" className="text-sm text-gray-600 hover:underline">
-            Dont have an account? Sign up
-          </Link>
-        </div>
-        <div className="mt-2 text-center">
-          <Link href="/forgot-password" className="text-sm text-gray-600 hover:underline">
-            Forgot your password?
-          </Link>
-        </div>
       </div>
     </div>
   )

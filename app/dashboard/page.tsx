@@ -4,8 +4,8 @@ import Button from "@/components/ui/button/Button";
 import { useEffect, useState } from "react";
 import TopicCard from "@/components/ui/card/TopicCard";
 import CreateTopicModal from "@/components/ui/modal/CreateTopicModal";
-import { Topic } from "../lib/types";
-import { fetchTopicsByUserId } from "../lib/data";
+import { Topic, TopicAndCardsCount } from "../lib/types";
+import { fetchTopicsAndCardsCount, fetchTopicsByUserId } from "../lib/data";
 import { LogOutIcon, PlusIcon, UserIcon } from "lucide-react";
 import LoadingModal from "@/components/ui/modal/LoadingModal";
 import { signOut, useSession } from "next-auth/react";
@@ -21,6 +21,7 @@ export default function HomePage() {
   const [user, setUser] = useState<User>();
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [topicsAndCardsCount, setTopicsAndCardsCount] = useState<{[key: string]: number}>({})
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -39,6 +40,12 @@ export default function HomePage() {
       try {
         setIsLoading(true);
         setTopics(await fetchTopicsByUserId(user.id));
+        const fetchedData: TopicAndCardsCount[] = await fetchTopicsAndCardsCount(user.id);
+        let topicsAndCardObjTemp:  {[key: string]: number} = {}
+        fetchedData.forEach(data => {
+          topicsAndCardObjTemp[data.id] = data.count;
+        });
+        setTopicsAndCardsCount(topicsAndCardObjTemp)
       } catch (error) {
         console.log(error);
       } finally {
@@ -81,7 +88,7 @@ export default function HomePage() {
         <Button text="New Topic" action={handleCreateTopic} iconComponent={<PlusIcon className="button-icon" />} />
         <div className="space-y-6 mt-4">
           {topics.map(({ id, name }) => (
-            <TopicCard key={id} user_id={user?.id || ""} id={id} name={name} updateAction={() => setIsTopicUpdated(true)} />
+            <TopicCard key={id} user_id={user?.id || ""} id={id} name={name} updateAction={() => setIsTopicUpdated(true)} cardCount={topicsAndCardsCount["asd"]} />
           ))}
         </div>
       </div>
