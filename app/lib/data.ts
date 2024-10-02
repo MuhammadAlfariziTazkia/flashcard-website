@@ -1,7 +1,7 @@
 'use server'
 
 import { sql } from "@vercel/postgres";
-import { Card, Topic, User } from "./types";
+import { Card, CardCount, Topic, TopicAndCardsCount, User } from "./types";
 
 export async function fetchTopicsByUserId(userId: string) {
    try {
@@ -23,6 +23,16 @@ export async function fetchCards(topicId: string) {
    }
 }
 
+export async function fetchCardsCount(topicId: string){
+   try {
+      const data = await sql<CardCount>`SELECT COUNT(id) FROM cards WHERE topic_id = ${topicId}`;
+      return data.rows[0].count;
+   } catch (error) {
+      console.log(error)
+      throw new Error('Failed fetch cards count data');
+   }
+}
+
 export async function getUser(email: string): Promise<User | undefined> {
    try {
       const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
@@ -31,4 +41,20 @@ export async function getUser(email: string): Promise<User | undefined> {
       console.error('Failed to fetch user:', error);
       throw new Error('Failed to fetch user.');
    }
+}
+
+export async function fetchTopicsAndCardsCount(userId: string) {
+   try {
+      const user = await sql<TopicAndCardsCount>`
+         SELECT t.id, COUNT(c.id) FROM topics t 
+         JOIN cards C ON t.id = c.topic_id 
+         GROUP BY t.id
+         HAVING t.user_id = ${userId} 
+         `;
+      return user.rows;
+   } catch (error) {
+      console.error('Failed to fetch topics and cards count:', error);
+      throw new Error('Failed to fetch topics and cards count.');
+   }
+
 }

@@ -1,18 +1,30 @@
 import TrashButton from "../button/TrashButton";
 import CloseButton from "../button/CloseButton";
-import { CardListModalType } from "@/app/lib/types";
+import { Card, CardListModalType } from "@/app/lib/types";
 import { deleteCard } from "@/app/lib/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingModal from "./LoadingModal";
+import { fetchCards } from "@/app/lib/data";
 
-export default function CardListModal({ cards, closeAction, updateAction }: CardListModalType) {
+export default function CardListModal({ topicId, closeAction, updateAction }: CardListModalType) {
     const [isLoading, setIsLoading] = useState(false);
-    
+    const [cards, setCards] = useState<Card[]>([]);
+    const [isCardsUpdated, setIsCardsUpdated] = useState(false);
+
+    useEffect(() => {
+        async function loadCards() {
+            setCards(await fetchCards(topicId));
+            setIsCardsUpdated(false)
+        }
+        loadCards();
+    }, [isCardsUpdated])
+
     const handleDeleteCard = async (id: string) => {
         setIsLoading(true);
         try {
             await deleteCard(id);
             updateAction();
+            setIsCardsUpdated(true);
         } catch (error) {
             console.log(error)
         } finally {
@@ -25,7 +37,7 @@ export default function CardListModal({ cards, closeAction, updateAction }: Card
             <div className="bg-gray-100 p-8 rounded-2xl w-full max-w-2xl shadow-[10px_10px_20px_#bebebe,-10px_-10px_20px_#ffffff] overflow-y-auto max-h-[90vh]">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">Topic Name</h2>
-                    <CloseButton action={closeAction}/>
+                    <CloseButton action={closeAction} />
                 </div>
                 <div className="space-y-4">
                     {cards.map(card => (

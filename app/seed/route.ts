@@ -2,31 +2,7 @@ import { db } from '@vercel/postgres'
 
 const client = await db.connect();
 
-async function createTableTopics() {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    await client.sql`
-        CREATE TABLE IF NOT EXISTS  topics (
-            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            name VARCHAR(255) NOT NULL
-        );
-    `
-    console.log("Create table success: topics")
-}
-
-async function createTableCards() {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    await client.sql`
-        CREATE TABLE IF NOT EXISTS  cards (
-            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            value_1 VARCHAR(255) NOT NULL,
-            value_2 VARCHAR(255) NOT NULL,
-            topic_id VARCHAR(64) NOT NULL
-        );
-    `
-    console.log("Create table success: cards")
-}
-
-async function seedUsers() {
+async function createTableUsers() {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     await client.sql`
       CREATE TABLE IF NOT EXISTS users (
@@ -36,21 +12,48 @@ async function seedUsers() {
         password TEXT NOT NULL
       );
     `; 
-}  
+}
 
-async function addColumnUserIdOnTopics() {
+async function createTableTopics() {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     await client.sql`
-        ALTER TABLE topics ADD COLUMN IF NOT EXISTS user_id varchar(64);
-    `
+        CREATE TABLE IF NOT EXISTS topics (
+            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            user_id UUID NOT NULL,
+            CONSTRAINT fk_user
+                FOREIGN KEY (user_id) 
+                REFERENCES users(id)
+                ON DELETE CASCADE
+        );
+    `;
+    console.log("Create table success: topics")
+}
+
+async function createTableCards() {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    await client.sql`
+        CREATE TABLE IF NOT EXISTS cards (
+            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+            value_1 VARCHAR(255) NOT NULL,
+            value_2 VARCHAR(255) NOT NULL,
+            topic_id UUID NOT NULL,
+            CONSTRAINT fk_topic
+                FOREIGN KEY (topic_id) 
+                REFERENCES topics(id)
+                ON DELETE CASCADE
+        );
+    `;
+
+    console.log("Create table success: cards")
 }
 
 export async function GET() {
     try {
         await client.sql`BEGIN`;
+        await createTableUsers();
         await createTableTopics();
         await createTableCards();
-        await seedUsers();
-        await addColumnUserIdOnTopics();
         await client.sql`COMMIT`;
 
         return Response.json({ message: "Database seeded successfully" });
