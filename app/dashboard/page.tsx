@@ -41,7 +41,7 @@ export default function HomePage() {
         setIsLoading(true);
         setTopics(await fetchTopicsByUserId(user.id));
         const fetchedData: TopicAndCardsCount[] = await fetchTopicsAndCardsCount(user.id);
-        let topicsAndCardObjTemp:  {[key: string]: number} = {}
+        const topicsAndCardObjTemp:  {[key: string]: number} = {}
         fetchedData.forEach(data => {
           topicsAndCardObjTemp[data.id] = data.count;
         });
