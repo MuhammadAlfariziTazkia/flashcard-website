@@ -10,7 +10,7 @@ import { PlayIcon } from "lucide-react";
 import { fetchCards } from "@/app/lib/data";
 
 function getRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 export default function TestModal({ topicId, closeAction, topicName }: TestModalType) {
