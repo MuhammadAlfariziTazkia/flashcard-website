@@ -3,24 +3,32 @@ import CloseButton from "../button/CloseButton";
 import { Card, CardListModalType } from "@/app/lib/types";
 import { deleteCard } from "@/app/lib/actions";
 import { useEffect, useState } from "react";
-import LoadingModal from "./LoadingModal";
 import { fetchCards } from "@/app/lib/data";
+import LoadingModal from "./LoadingModal";
 
-export default function CardListModal({ topicId, closeAction, updateAction }: CardListModalType) {
+export default function CardListModal({ topicId, topicName, closeAction, updateAction }: CardListModalType) {
+    const [isDeleting, setIsDeleting] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [cards, setCards] = useState<Card[]>([]);
     const [isCardsUpdated, setIsCardsUpdated] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
         async function loadCards() {
-            setCards(await fetchCards(topicId));
-            setIsCardsUpdated(false)
+            try {
+                setCards(await fetchCards(topicId));
+                setIsCardsUpdated(false)
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setIsLoading(false);
+            }
         }
         loadCards();
     }, [isCardsUpdated])
 
     const handleDeleteCard = async (id: string) => {
-        setIsLoading(true);
+        setIsDeleting(true);
         try {
             await deleteCard(id);
             updateAction();
@@ -28,7 +36,7 @@ export default function CardListModal({ topicId, closeAction, updateAction }: Ca
         } catch (error) {
             console.log(error)
         } finally {
-            setIsLoading(false);
+            setIsDeleting(false);
         }
     }
 
@@ -36,7 +44,7 @@ export default function CardListModal({ topicId, closeAction, updateAction }: Ca
         <div className="fixed inset-0 bg-gray-100 bg-opacity-90 flex items-center justify-center p-4">
             <div className="bg-gray-100 p-8 rounded-2xl w-full max-w-2xl shadow-[10px_10px_20px_#bebebe,-10px_-10px_20px_#ffffff] overflow-y-auto max-h-[90vh]">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800">Topic Name</h2>
+                    <h2 className="text-2xl font-bold text-gray-800">{topicName}</h2>
                     <CloseButton action={closeAction} />
                 </div>
                 <div className="space-y-4">
@@ -56,8 +64,11 @@ export default function CardListModal({ topicId, closeAction, updateAction }: Ca
                     ))}
                 </div>
             </div>
+            {isDeleting && (
+                <LoadingModal message="Deleting data..." />
+            )}
             {isLoading && (
-                <LoadingModal message="Deleting..." />
+                <LoadingModal message="Loading Data..." />
             )}
         </div>
     )

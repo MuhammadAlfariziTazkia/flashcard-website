@@ -64,7 +64,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-zinc-50 p-4 mb-8">
+        <div className="bg-gray-100 p-6 rounded-xl shadow-[inset_5px_5px_10px_#bebebe,inset_-5px_-5px_10px_#ffffff] mb-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <UserIcon className="h-6 w-6 text-blue-600 mr-2" />
@@ -86,7 +86,7 @@ export default function HomePage() {
         Remember new things in a easy and effective way
       </p>
       <div className="max-w-4xl mx-auto">
-        <Button text="New Topic" action={handleCreateTopic} iconComponent={<PlusIcon className="button-icon" />} />
+        <Button text="New Topic" action={handleCreateTopic} iconComponent={<PlusIcon className="button-icon text-blue-600" />} />
         <div className="space-y-6 mt-4">
           {topics.map(({ id, name }) => (
             <TopicCard key={id} user_id={user?.id || ""} id={id} name={name} updateAction={() => setIsTopicUpdated(true)} cardCount={topicsAndCardsCount["asd"]} />
