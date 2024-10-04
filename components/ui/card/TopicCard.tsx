@@ -4,7 +4,7 @@ import CardListModal from "../modal/CardListModal";
 import { fetchCardsCount } from "@/app/lib/data";
 import AddCardModal from "../modal/AddCardModal";
 import TestModal from "../modal/TestModal";
-import { ListIcon, PlayIcon, PlusIcon, TrashIcon } from "lucide-react";
+import { ListIcon, PlayIcon, TrashIcon } from "lucide-react";
 import { deleteTopic } from "@/app/lib/actions";
 
 export default function TopicCard({ id, name, updateAction, cardCount }: TopicCardType) {
