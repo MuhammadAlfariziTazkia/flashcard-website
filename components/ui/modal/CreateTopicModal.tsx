@@ -1,7 +1,6 @@
 import { Modal } from "@/app/lib/types";
 import ModalLayout from "./ModalLayout";
 import { createTopic } from "@/app/lib/actions";
-import "@/components/ui/input/input-style.css"
 import React from "react";
 
 interface Props extends Modal {
