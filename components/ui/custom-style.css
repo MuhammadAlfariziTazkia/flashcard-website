@@ -14,22 +14,6 @@
     color: white;
 }
 
-.deep-button {
-    display: flex;
-    background-color: #f7f7f7;
-    color: #4b5563;
-    padding: 0.5rem 1rem;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
-}
-
-.deep-button:hover {
-    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
-    background-color: rgb(43, 43, 43);
-    color: white;
-}
-
 .button-icon {
     margin-right: 0.5rem;
     width: 1rem;
@@ -66,4 +50,21 @@
 .long-button:disabled {
     pointer-events: none;
     opacity: 0.5;
+}
+
+input {
+    width: 100%;
+    margin-bottom: 1.75rem;
+    padding: 1rem;
+    background-color: #f7fafc;
+    border-radius: 0.75rem;
+    box-shadow:
+        inset 5px 5px 10px #bebebe,
+        inset -5px -5px 10px #ffffff;
+    color: #4a5568;
+    border: none;
+}
+
+input:focus {
+    outline: none;
 }

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { createUser } from "../lib/actions";
-import CustomInput from "@/components/ui/input/CustomInput";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
@@ -29,7 +28,8 @@ export default function RegisterPage() {
             <label htmlFor="name" className="text-sm font-medium text-gray-700">
               Name
             </label>
-            <CustomInput
+            <input
+              required
               id="name"
               type="text"
               name="name"
@@ -40,7 +40,8 @@ export default function RegisterPage() {
             <label htmlFor="email" className="text-sm font-medium text-gray-700">
               Email
             </label>
-            <CustomInput
+            <input
+              required
               id="email"
               type="email"
               name="email"
@@ -51,7 +52,8 @@ export default function RegisterPage() {
             <label htmlFor="password" className="text-sm font-medium text-gray-700">
               Password
             </label>
-            <CustomInput
+            <input
+              required
               id="password"
               type="password"
               name="password"
@@ -62,7 +64,8 @@ export default function RegisterPage() {
             <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
               Confirm Password
             </label>
-            <CustomInput
+            <input
+              required
               id="confirmPassword"
               type="password"
               placeholder="••••••••"

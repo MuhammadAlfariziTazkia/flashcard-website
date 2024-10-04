@@ -4,7 +4,6 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PlusIcon } from 'lucide-react';
-import CustomInput from '@/components/ui/input/CustomInput';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -38,13 +37,13 @@ export default function LoginPage() {
             <label htmlFor="email" className="text-sm font-medium text-gray-700">
               Email
             </label>
-            <CustomInput type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} name="email" id="email" />
+            <input required type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} name="email" id="email" />
           </div>
           <div>
             <label htmlFor="password" className="text-sm font-medium text-gray-700">
               Password
             </label>
-            <CustomInput type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="password" />
+            <input required type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="password" />
           </div>
           <button
             type="submit"
