@@ -1,5 +1,4 @@
 import { TopicCardType } from "@/app/lib/types";
-import Button from "../button/Button";
 import { useEffect, useState } from "react";
 import CardListModal from "../modal/CardListModal";
 import { fetchCardsCount } from "@/app/lib/data";
@@ -41,16 +40,28 @@ export default function TopicCard({ id, name, updateAction, cardCount }: TopicCa
       <h2 className="text-2xl font-semibold mb-2 text-gray-800">{name}</h2>
       <p className="text-gray-600 mb-4">{dynamicCardsCount} Flashcards</p>
       <div className="flex space-x-4">
-        <Button iconComponent={<PlusIcon className="button-icon text-blue-600" />} text="Add Card" action={() => setIsAddCardModalOpen(true)} />
+        <button className="pop-button" onClick={() => setIsAddCardModalOpen(true)}>
+          <PlayIcon className="button-icon text-blue-600" />
+          Add Card
+        </button>
         {dynamicCardsCount > 0
           ? (
             <>
-              <Button iconComponent={<ListIcon className="button-icon text-yellow-600" />} text="View Cards" action={() => setIsCardListModalOpen(true)} />
-              <Button iconComponent={<PlayIcon className="button-icon text-green-600" />} text="Start Test" action={() => setIsTestModalOpen(true)} />
+              <button className="pop-button" onClick={() => setIsCardListModalOpen(true)}>
+                <ListIcon className="button-icon text-yellow-600" />
+                View Cards
+              </button>
+              <button className="pop-button" onClick={() => setIsTestModalOpen(true)}>
+                <PlayIcon className="button-icon text-green-600" />
+                Start Test
+              </button>
             </>
           )
           : <></>}
-        <Button iconComponent={<TrashIcon className="button-icon text-red-600" />} text="Delete Topic" action={handleDeleteTopic} />
+        <button className="pop-button" onClick={handleDeleteTopic}>
+          <TrashIcon className="button-icon text-red-600" />
+          Delete Topic
+        </button>
       </div>
       {isCardListModalOpen && (
         <CardListModal topicName={name} updateAction={() => setIsCardsUpdated(true)} topicId={id} closeAction={() => setIsCardListModalOpen(false)} />
