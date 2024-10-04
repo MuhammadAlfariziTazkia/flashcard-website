@@ -1,16 +1,21 @@
 import TrashButton from "../button/TrashButton";
 import CloseButton from "../button/CloseButton";
-import { Card, CardListModalType } from "@/app/lib/types";
+import { Card, Modal } from "@/app/lib/types";
 import { deleteCard } from "@/app/lib/actions";
 import { useEffect, useState } from "react";
 import { fetchCards } from "@/app/lib/data";
 import LoadingModal from "./LoadingModal";
 
-export default function CardListModal({ topicId, topicName, closeAction, updateAction }: CardListModalType) {
-    const [isDeleting, setIsDeleting] = useState(false);
+export interface Props extends Modal {
+    topicId: string;
+    updateAction: () => void;
+}
+
+export default function CardListModal({ topicId, closeAction, updateAction }: Props) {
     const [isLoading, setIsLoading] = useState(false);
     const [cards, setCards] = useState<Card[]>([]);
     const [isCardsUpdated, setIsCardsUpdated] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);

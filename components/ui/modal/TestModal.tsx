@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import LongButton from "../button/LongButton";
 import ModalLayout from "./ModalLayout";
-import { Card, TestModalType } from "@/app/lib/types";
+import { Card, Modal } from "@/app/lib/types";
 import Button from "../button/Button";
-import CustomInput from "../input/CustomInput";
 import DangerAlert from "../alert/DangerAlert";
 import SuccessAlert from "../alert/SuccessAlert";
 import { PlayIcon } from "lucide-react";
 import { fetchCards } from "@/app/lib/data";
-import LoadingModal from "./LoadingModal";
+import "@/components/ui/custom-style.css";
+
+interface Props extends Modal {
+    topicName: string;
+    topicId: string;
+}
 
 function getRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export default function TestModal({ topicId, closeAction, topicName }: TestModalType) {
+export default function TestModal({ topicId, closeAction, topicName }: Props) {
     const [index, setIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [answer, setAnswer] = useState("");
@@ -63,7 +67,7 @@ export default function TestModal({ topicId, closeAction, topicName }: TestModal
                 <div>
                     <p className="text-4xl font-bold text-gray-800 text-center my-10">{cards[index].value_1}</p>
                     <form onSubmit={handleCheckAnswer}>
-                    <CustomInput placeholder="Answer" onChange={handleInputAnswer} value={answer} />
+                    <input type="text" placeholder="Answer" onChange={handleInputAnswer} value={answer} required/>
                     <LongButton text="Check Answer" type="submit" />
                     </form>
                     {correctness == 2 && (

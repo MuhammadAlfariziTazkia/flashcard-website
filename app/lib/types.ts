@@ -19,33 +19,6 @@ export interface Modal {
     closeAction: () => void;
 }
 
-export interface TopicFormModal extends Modal {
-    userId: string;
-    updateAction: () => void;
-}
-
-export interface AddCardModalType extends Modal {
-    topicId: string;
-    topicName: string;
-    updateAction: () => void;
-}
-
-export interface CardListModalType extends Modal {
-    topicId: string;
-    topicName: string;
-    updateAction: () => void;
-}
-
-export interface TestModalType extends Modal {
-    topicName: string;
-    topicId: string;
-}
-
-export interface ModalLayoutPropsType extends Modal {
-    body: React.ReactNode;
-    title: string;
-}
-
 export interface FlashcardDataType {
     id: string;
     value1: string;

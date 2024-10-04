@@ -1,11 +1,16 @@
-import { TopicFormModal } from "@/app/lib/types";
+import { Modal } from "@/app/lib/types";
 import LongButton from "../button/LongButton";
 import ModalLayout from "./ModalLayout";
 import { createTopic } from "@/app/lib/actions";
 import "@/components/ui/input/input-style.css"
 import React from "react";
 
-export default function CreateTopicModal({ closeAction, updateAction, userId }: TopicFormModal) {
+interface Props extends Modal {
+    userId: string;
+    updateAction: () => void;
+}
+
+export default function CreateTopicModal({ closeAction, updateAction, userId }: Props) {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {

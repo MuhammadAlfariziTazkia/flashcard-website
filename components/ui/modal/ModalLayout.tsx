@@ -1,7 +1,12 @@
-import { ModalLayoutPropsType } from "@/app/lib/types";
+import { Modal } from "@/app/lib/types";
 import CloseButton from "../button/CloseButton";
 
-export default function ModalLayout ({ title, closeAction, body }: ModalLayoutPropsType) {
+interface Props extends Modal {
+    body: React.ReactNode;
+    title: string;
+}
+
+export default function ModalLayout ({ title, closeAction, body }: Props) {
     return (
         <div className="fixed inset-0 bg-gray-100 bg-opacity-90 flex items-center justify-center p-4">
             <div className="bg-gray-100 p-8 rounded-2xl w-full max-w-md shadow-[10px_10px_20px_#bebebe,-10px_-10px_20px_#ffffff]">
