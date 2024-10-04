@@ -6,7 +6,7 @@ import { createCard } from "@/app/lib/actions"
 import { useState } from "react"
 import LoadingModal from "./LoadingModal"
 
-export default function AddCardModal({ topicId, closeAction, updateAction }: AddCardModalType) {
+export default function AddCardModal({ topicId, topicName, closeAction, updateAction }: AddCardModalType) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,5 +36,5 @@ export default function AddCardModal({ topicId, closeAction, updateAction }: Add
             )}
         </div>
     )
-    return <ModalLayout title="Topic Name" body={body} closeAction={closeAction} />
+    return <ModalLayout title={topicName} body={body} closeAction={closeAction} />
 }

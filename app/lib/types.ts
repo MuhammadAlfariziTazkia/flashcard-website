@@ -26,11 +26,13 @@ export interface TopicFormModal extends Modal {
 
 export interface AddCardModalType extends Modal {
     topicId: string;
+    topicName: string;
     updateAction: () => void;
 }
 
 export interface CardListModalType extends Modal {
     topicId: string;
+    topicName: string;
     updateAction: () => void;
 }
 

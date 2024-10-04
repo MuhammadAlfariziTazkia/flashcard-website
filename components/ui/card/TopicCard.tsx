@@ -42,7 +42,7 @@ export default function TopicCard({ id, name, updateAction, cardCount }: TopicCa
       <p className="text-gray-600 mb-4">{dynamicCardsCount} Flashcards</p>
       <div className="flex space-x-4">
         <Button iconComponent={<PlusIcon className="button-icon text-blue-600" />} text="Add Card" action={() => setIsAddCardModalOpen(true)} />
-        {dynamicCardsCount
+        {dynamicCardsCount > 0
           ? (
             <>
               <Button iconComponent={<ListIcon className="button-icon text-yellow-600" />} text="View Cards" action={() => setIsCardListModalOpen(true)} />
@@ -53,10 +53,10 @@ export default function TopicCard({ id, name, updateAction, cardCount }: TopicCa
         <Button iconComponent={<TrashIcon className="button-icon text-red-600" />} text="Delete Topic" action={handleDeleteTopic} />
       </div>
       {isCardListModalOpen && (
-        <CardListModal updateAction={() => setIsCardsUpdated(true)} topicId={id} closeAction={() => setIsCardListModalOpen(false)} />
+        <CardListModal topicName={name} updateAction={() => setIsCardsUpdated(true)} topicId={id} closeAction={() => setIsCardListModalOpen(false)} />
       )}
       {isAddCardModalOpen && (
-        <AddCardModal updateAction={() => setIsCardsUpdated(true)} topicId={id} closeAction={() => setIsAddCardModalOpen(false)} />
+        <AddCardModal topicName={name} updateAction={() => setIsCardsUpdated(true)} topicId={id} closeAction={() => setIsAddCardModalOpen(false)} />
       )}
       {isTestModalOpen && (
         <TestModal topicId={id} closeAction={() => setIsTestModalOpen(false)} topicName={name} />

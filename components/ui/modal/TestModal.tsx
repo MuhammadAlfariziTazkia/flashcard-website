@@ -8,6 +8,7 @@ import DangerAlert from "../alert/DangerAlert";
 import SuccessAlert from "../alert/SuccessAlert";
 import { PlayIcon } from "lucide-react";
 import { fetchCards } from "@/app/lib/data";
+import LoadingModal from "./LoadingModal";
 
 function getRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -15,17 +16,25 @@ function getRandomNumber(min: number, max: number): number {
 
 export default function TestModal({ topicId, closeAction, topicName }: TestModalType) {
     const [index, setIndex] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
     const [answer, setAnswer] = useState("");
     const [cards, setCards] = useState<Card[]>([])
     const [cardsCount, setCardsCount] = useState(0);
     const [correctness, setCorrectness] = useState(0);
 
     useEffect(() => {
+        setIsLoading(true);
         async function loadCards() {
-            const data = await fetchCards(topicId)
-            setCards(data);
-            setCardsCount(data.length)
-            setIndex(getRandomNumber(0, data.length))
+            try {
+                const data = await fetchCards(topicId)
+                setCards(data);
+                setCardsCount(data.length)
+                setIndex(getRandomNumber(0, data.length))
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setIsLoading(false);
+            }
         }
         loadCards();
     }, [])
@@ -74,6 +83,9 @@ export default function TestModal({ topicId, closeAction, topicName }: TestModal
                         </>
                     )}
                 </div>
+            )}
+            {isLoading && (
+                <LoadingModal message="Loading data..." />
             )}
         </>
     )
