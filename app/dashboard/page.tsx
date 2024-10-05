@@ -10,7 +10,7 @@ import LoadingModal from "@/components/ui/modal/LoadingModal";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { User } from "next-auth";
-
+import "@/components/ui/custom-style.css";
 
 export default function HomePage() {
   const [topics, setTopics] = useState<Topic[]>([])
@@ -45,7 +45,6 @@ export default function HomePage() {
           topicsAndCardObjTemp[data.id] = data.count;
         });
         setTopicsAndCardsCount(topicsAndCardObjTemp)
-        console.log("LALALA")
       } catch (error) {
         console.log(error);
       } finally {

@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import CardListModal from "../modal/CardListModal";
 import { fetchCardsCount } from "@/app/lib/data";
 import AddCardModal from "../modal/AddCardModal";
-import TestModal from "../modal/TestModal";
-import { ListIcon, PlayIcon, TrashIcon } from "lucide-react";
+import { ListIcon, LucideRefreshCw, MemoryStick, PlayIcon, PlusIcon, RefreshCcw, RefreshCwOff, TrashIcon, WalletCards } from "lucide-react";
 import { deleteTopic } from "@/app/lib/actions";
+import PracticeModal from "../modal/PracticeModal";
+import TestModal from "../modal/TestModal";
 
 export default function TopicCard({ id, name, updateAction, cardCount }: TopicCardType) {
   const [isCardListModalOpen, setIsCardListModalOpen] = useState(false);
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
+  const [isPracticeModalOpen, setIsPracticeModalOpen] = useState(false);
   const [isTestModalOpen, setIsTestModalOpen] = useState(false);
   const [isCardsUpdated, setIsCardsUpdated] = useState(false);
   const [dynamicCardsCount, setDynamicCardsCount] = useState<number>(cardCount);
@@ -41,26 +43,30 @@ export default function TopicCard({ id, name, updateAction, cardCount }: TopicCa
       <p className="text-gray-600 mb-4">{dynamicCardsCount} Flashcards</p>
       <div className="flex space-x-4">
         <button className="pop-button" onClick={() => setIsAddCardModalOpen(true)}>
-          <PlayIcon className="button-icon text-blue-600" />
+          <PlusIcon className="button-icon text-blue-600" />
           Add Card
         </button>
         {dynamicCardsCount > 0
           ? (
             <>
               <button className="pop-button" onClick={() => setIsCardListModalOpen(true)}>
-                <ListIcon className="button-icon text-yellow-600" />
-                View Cards
+                <WalletCards className="button-icon text-yellow-600" />
+                Flashcards
+              </button>
+              <button className="pop-button" onClick={() => setIsPracticeModalOpen(true)}>
+                <RefreshCcw className="button-icon text-teal-400" />
+                Practice
               </button>
               <button className="pop-button" onClick={() => setIsTestModalOpen(true)}>
                 <PlayIcon className="button-icon text-green-600" />
-                Start Test
+                Test
               </button>
             </>
           )
           : <></>}
         <button className="pop-button" onClick={handleDeleteTopic}>
           <TrashIcon className="button-icon text-red-600" />
-          Delete Topic
+          Delete
         </button>
       </div>
       {isCardListModalOpen && (
@@ -68,6 +74,9 @@ export default function TopicCard({ id, name, updateAction, cardCount }: TopicCa
       )}
       {isAddCardModalOpen && (
         <AddCardModal topicName={name} updateAction={() => setIsCardsUpdated(true)} topicId={id} closeAction={() => setIsAddCardModalOpen(false)} />
+      )}
+      {isPracticeModalOpen && (
+        <PracticeModal topicId={id} closeAction={() => setIsPracticeModalOpen(false)} topicName={name} />
       )}
       {isTestModalOpen && (
         <TestModal topicId={id} closeAction={() => setIsTestModalOpen(false)} topicName={name} />

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import "@/components/ui/custom-style.css";
 
 export default function Home() {
   return (
