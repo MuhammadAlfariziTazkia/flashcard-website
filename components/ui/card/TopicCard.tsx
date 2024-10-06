@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CardListModal from "../modal/CardListModal";
 import { fetchCardsCount } from "@/app/lib/data";
 import AddCardModal from "../modal/AddCardModal";
-import { ListIcon, LucideRefreshCw, MemoryStick, PlayIcon, PlusIcon, RefreshCcw, RefreshCwOff, TrashIcon, WalletCards } from "lucide-react";
+import { PlayIcon, PlusIcon, RefreshCcw, TrashIcon, WalletCards } from "lucide-react";
 import { deleteTopic } from "@/app/lib/actions";
 import PracticeModal from "../modal/PracticeModal";
 import TestModal from "../modal/TestModal";
